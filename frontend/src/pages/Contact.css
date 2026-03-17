@@ -1,0 +1,48 @@
+:root {
+  --bg: #0b1e3b;
+  --bg-alt: #10264a;
+  --primary: #4f8bff;
+  --text: #eaf2ff;
+}
+.page.contact {
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--bg), var(--bg-alt));
+  color: var(--text);
+}
+.page-hero {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 46px 20px 6px;
+}
+.contact-grid {
+  max-width: 1100px;
+  margin: 6px auto 26px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 18px;
+}
+.contact-card, .contact-form {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 18px;
+}
+.contact-form form {
+  display: grid;
+  gap: 10px;
+}
+.contact-form input, .contact-form textarea {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  color: var(--text);
+}
+.contact-form button {
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+}

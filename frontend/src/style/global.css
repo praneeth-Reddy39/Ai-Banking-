@@ -1,0 +1,14 @@
+:root {
+  --bg: #0b1e3b;
+  --bg-alt: #10264a;
+  --text: #eaf2ff;
+}
+html, body, #root {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background: linear-gradient(180deg, var(--bg), var(--bg-alt));
+  color: var(--text);
+  font-family: Inter, system-ui, Arial, sans-serif;
+}

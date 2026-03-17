@@ -1,0 +1,92 @@
+:root {
+  --bg: #0b1e3b;
+  --bg-alt: #10264a;
+  --primary: #4f8bff;
+  --text: #eaf2ff;
+  --muted: #b9c7e6;
+}
+.home {
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--bg), var(--bg-alt));
+  color: var(--text);
+}
+.hero {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 60px 20px 30px;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 20px;
+  align-items: center;
+}
+.hero h1 {
+  font-size: 46px;
+  line-height: 1.15;
+  margin: 0 0 12px;
+}
+.hero h1 span {
+  color: var(--primary);
+}
+.hero p {
+  color: var(--muted);
+  max-width: 520px;
+}
+.hero-actions .cta {
+  display: inline-block;
+  margin-top: 18px;
+  padding: 10px 18px;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+}
+.hero-art {
+  height: 260px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.06);
+  position: relative;
+}
+.badge {
+  position: absolute;
+  top: 22px;
+  left: 22px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #fff;
+  color: #1d2d50;
+  font-weight: 700;
+}
+.badge.right {
+  bottom: 22px;
+  right: 22px;
+  top: auto;
+  left: auto;
+}
+.features {
+  max-width: 1100px;
+  margin: 20px auto 0;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.feature {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 18px;
+}
+.feature .icon {
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+.feature h3 {
+  margin: 6px 0;
+}
+.feature p {
+  color: var(--muted);
+}

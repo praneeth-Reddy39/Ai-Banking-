@@ -1,0 +1,308 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ─── Page ─────────────────────────────────────────────────────── */
+.su-page {
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at 80% 20%, #0e0a28 0%, #07060e 60%, #020810 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ─── Particle Canvas ─────────────────────────────────────────── */
+.su-particle-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ─── Glowing Orbs ────────────────────────────────────────────── */
+.su-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  animation: suOrbFloat 8s ease-in-out infinite;
+  z-index: 0;
+}
+.su-orb-1 {
+  width: 420px; height: 420px;
+  background: radial-gradient(circle, rgba(120,60,255,0.18) 0%, transparent 70%);
+  top: -120px; right: -120px;
+  animation-delay: 0s;
+}
+.su-orb-2 {
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, rgba(79,139,255,0.14) 0%, transparent 70%);
+  bottom: -80px; left: -80px;
+  animation-delay: 3s;
+}
+.su-orb-3 {
+  width: 260px; height: 260px;
+  background: radial-gradient(circle, rgba(200,60,255,0.10) 0%, transparent 70%);
+  top: 50%; left: 20%;
+  animation-delay: 5.5s;
+}
+@keyframes suOrbFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(-25px, 20px) scale(1.05); }
+  66%       { transform: translate(20px, -15px) scale(0.96); }
+}
+
+/* ─── Card ────────────────────────────────────────────────────── */
+.su-card {
+  position: relative;
+  z-index: 10;
+  width: 420px;
+  padding: 44px 40px;
+  background: rgba(14, 10, 40, 0.74);
+  backdrop-filter: blur(22px) saturate(1.4);
+  -webkit-backdrop-filter: blur(22px) saturate(1.4);
+  border: 1px solid rgba(120, 60, 255, 0.2);
+  border-radius: 24px;
+  box-shadow:
+    0 0 0 1px rgba(120,60,255,0.07),
+    0 24px 80px rgba(0, 0, 0, 0.6),
+    0 0 60px rgba(120,60,255,0.08);
+  animation: suCardEntrance 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes suCardEntrance {
+  from { opacity: 0; transform: translateY(40px) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ─── Shake ───────────────────────────────────────────────────── */
+@keyframes suShake {
+  0%, 100% { transform: translateX(0); }
+  15%       { transform: translateX(-8px); }
+  30%       { transform: translateX(8px); }
+  45%       { transform: translateX(-6px); }
+  60%       { transform: translateX(6px); }
+  75%       { transform: translateX(-3px); }
+  90%       { transform: translateX(3px); }
+}
+.su-card.su-shake { animation: suShake 0.6s ease; }
+
+/* ─── Success Pop ─────────────────────────────────────────────── */
+@keyframes suSuccessPop {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.03); box-shadow: 0 0 60px rgba(120,255,180,0.25); }
+  100% { transform: scale(1); }
+}
+.su-card.su-success-pop { animation: suSuccessPop 0.6s ease forwards; }
+
+/* ─── Icon ────────────────────────────────────────────────────── */
+.su-icon-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.su-icon {
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+  background: linear-gradient(135deg, rgba(120,60,255,0.28), rgba(79,139,255,0.18));
+  border: 1px solid rgba(120, 60, 255, 0.35);
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(120, 60, 255, 0.25);
+  animation: suIconPulse 3s ease-in-out infinite;
+}
+@keyframes suIconPulse {
+  0%, 100% { box-shadow: 0 0 30px rgba(120,60,255,0.25); }
+  50%       { box-shadow: 0 0 52px rgba(120,60,255,0.5); }
+}
+
+/* ─── Title ───────────────────────────────────────────────────── */
+.su-title {
+  font-size: 26px;
+  font-weight: 700;
+  text-align: center;
+  color: #eee8ff;
+  letter-spacing: -0.3px;
+  margin-bottom: 6px;
+  animation: suFadeUp 0.7s 0.2s ease both;
+}
+.su-subtitle {
+  font-size: 13.5px;
+  text-align: center;
+  color: rgba(200, 185, 255, 0.6);
+  margin-bottom: 28px;
+  animation: suFadeUp 0.7s 0.35s ease both;
+}
+@keyframes suFadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Alerts ──────────────────────────────────────────────────── */
+.su-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 80, 80, 0.12);
+  border: 1px solid rgba(255, 80, 80, 0.3);
+  color: #ffb3b3;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 13px;
+  margin-bottom: 16px;
+  animation: suAlertSlide 0.35s ease both;
+}
+.su-success-msg {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(60, 220, 120, 0.12);
+  border: 1px solid rgba(60, 220, 120, 0.3);
+  color: #8dffc8;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 13px;
+  margin-bottom: 16px;
+  animation: suAlertSlide 0.35s ease both;
+}
+@keyframes suAlertSlide {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.su-error-icon { font-size: 15px; }
+
+/* ─── Inputs ──────────────────────────────────────────────────── */
+.su-input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 14px;
+  animation: suFadeUp 0.7s ease both;
+}
+.su-input-group:nth-child(1) { animation-delay: 0.4s; }
+.su-input-group:nth-child(2) { animation-delay: 0.5s; }
+.su-input-group:nth-child(3) { animation-delay: 0.6s; }
+
+.su-input-icon {
+  position: absolute;
+  left: 14px;
+  font-size: 15px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.75;
+}
+.su-input-group input {
+  width: 100%;
+  padding: 13px 14px 13px 42px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(120, 60, 255, 0.18);
+  border-radius: 12px;
+  color: #eee8ff;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+}
+.su-input-group input::placeholder {
+  color: rgba(200, 185, 255, 0.38);
+}
+.su-input-group input:focus {
+  border-color: rgba(120, 60, 255, 0.6);
+  background: rgba(120, 60, 255, 0.08);
+  box-shadow: 0 0 0 3px rgba(120, 60, 255, 0.14), 0 0 20px rgba(120, 60, 255, 0.08);
+}
+
+/* ─── Button ──────────────────────────────────────────────────── */
+.su-btn {
+  width: 100%;
+  margin-top: 10px;
+  padding: 14px;
+  border: none;
+  border-radius: 13px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #7c3aff 0%, #4f8bff 100%);
+  box-shadow: 0 4px 24px rgba(120, 60, 255, 0.38);
+  transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+  animation: suFadeUp 0.7s 0.7s ease both;
+}
+.su-btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+  animation: suShimmer 2.4s infinite;
+}
+@keyframes suShimmer {
+  0%   { left: -100%; }
+  100% { left: 200%; }
+}
+.su-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(120, 60, 255, 0.55);
+}
+.su-btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 12px rgba(120, 60, 255, 0.3);
+}
+.su-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* ─── Spinner ─────────────────────────────────────────────────── */
+.su-spinner {
+  display: inline-block;
+  width: 18px; height: 18px;
+  border: 2.5px solid rgba(255,255,255,0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: suSpin 0.75s linear infinite;
+  vertical-align: middle;
+}
+@keyframes suSpin { to { transform: rotate(360deg); } }
+
+/* ─── Footer links ────────────────────────────────────────────── */
+.su-footer-link {
+  text-align: center;
+  margin-top: 18px;
+  font-size: 13px;
+  color: rgba(200, 185, 255, 0.55);
+  animation: suFadeUp 0.7s 0.8s ease both;
+}
+.su-link {
+  color: #a07aff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+.su-link:hover { color: #c4b0ff; }
+
+.su-footer {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 11px;
+  color: rgba(200, 185, 255, 0.28);
+  letter-spacing: 0.3px;
+  animation: suFadeUp 0.7s 0.9s ease both;
+}
+
+/* ─── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .su-card {
+    width: 92%;
+    padding: 36px 24px;
+  }
+}

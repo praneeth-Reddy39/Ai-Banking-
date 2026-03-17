@@ -1,0 +1,50 @@
+:root {
+  --bg-services: #072235;
+  --bg-services-alt: #0c3a63;
+  --primary: #4f8bff;
+  --text: #eaf2ff;
+  --muted: #b9c7e6;
+}
+.page.services {
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--bg-services), var(--bg-services-alt));
+  color: var(--text);
+}
+.page-hero {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 46px 20px 6px;
+}
+.page-hero h1 {
+  font-size: 36px;
+  margin: 0 0 6px;
+}
+.page-hero p {
+  color: var(--muted);
+}
+.cards {
+  max-width: 1100px;
+  margin: 6px auto 0;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.card {
+  padding: 18px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.card-icon {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+.cta-banner {
+  max-width: 1100px;
+  margin: 12px auto 30px;
+  padding: 18px 20px;
+  border-radius: 14px;
+  background: rgba(79,139,255,0.18);
+  border: 1px solid rgba(255,255,255,0.08);
+}

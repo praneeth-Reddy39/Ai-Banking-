@@ -1,0 +1,79 @@
+.dashboard {
+  max-width: 1100px;
+  margin: 80px auto 40px;
+  color: #eaf2ff;
+  padding: 0 20px;
+}
+.ai-box {
+  margin: 16px 0;
+  padding: 16px;
+  background: rgba(79,139,255,0.18);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+}
+.transactions {
+  margin-top: 18px;
+}
+.tx-filters {
+  display: grid;
+  grid-template-columns: 0.4fr 1fr auto;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.tx-filters input, .tx-filters select {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  color: #eaf2ff;
+}
+.tx-summary {
+  display: flex;
+  gap: 14px;
+  font-weight: 600;
+}
+.tx-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.tx-form input, .tx-form select {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  color: #eaf2ff;
+}
+.tx-form button {
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #4f8bff;
+  color: #fff;
+  border: none;
+}
+.tx-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+.tx-item {
+  display: grid;
+  grid-template-columns: 0.8fr 0.6fr 1.6fr 1fr auto auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.06);
+}
+.tx-item button {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: transparent;
+  color: #eaf2ff;
+}
