@@ -11,7 +11,7 @@ function NavBar() {
   return (
     <header className="nav">
       <div className="nav-inner">
-        <Link to="/" className="brand">AI Banking</Link>
+        <Link to="/" className="brand">AI Banking Network</Link>
         <nav className="menu">
           <NavLink to="/" end>Home</NavLink>
           {loggedIn && (

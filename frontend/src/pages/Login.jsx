@@ -129,7 +129,7 @@ function Login() {
           <div className="login-icon">🏦</div>
         </div>
 
-        <h1 className="login-title">AI Banking</h1>
+        <h1 className="login-title">AI Banking Network</h1>
         <p className="login-subtitle">Sign in to your account</p>
 
         {error && (

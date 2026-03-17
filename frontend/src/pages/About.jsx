@@ -4,7 +4,7 @@ function About() {
   return (
     <div className="about">
       <section className="about-hero">
-        <h1>AI Banking System</h1>
+        <h1>AI Banking Network</h1>
         <p>
           A secure, intelligent, and user-friendly digital banking application integrating React and Spring Boot with AI.
         </p>
@@ -13,7 +13,7 @@ function About() {
       <section className="about-section">
         <h2>Overview</h2>
         <p>
-          The AI Banking System is a modern web-based banking application developed to provide secure, intelligent, and user-friendly digital financial services. The system integrates advanced web technologies with Artificial Intelligence techniques to enhance banking operations such as account management, fund transfers, loan processing, and fraud detection. The primary objective of this project is to design and implement a smart banking platform that improves operational efficiency, strengthens security, and enhances customer experience.
+          The AI Banking Network is a modern web-based banking application developed to provide secure, intelligent, and user-friendly digital financial services. The system integrates advanced web technologies with Artificial Intelligence techniques to enhance banking operations such as account management, fund transfers, loan processing, and fraud detection. The primary objective of this project is to design and implement a smart banking platform that improves operational efficiency, strengthens security, and enhances customer experience.
         </p>
       </section>
 
@@ -55,7 +55,7 @@ function About() {
       <section className="about-section">
         <h2>Conclusion</h2>
         <p>
-          The AI Banking System demonstrates how React and Spring Boot can be combined with AI to create a secure, scalable, and intelligent digital banking solution—improving security, automating decisions, and enhancing overall efficiency.
+          The AI Banking Network demonstrates how React and Spring Boot can be combined with AI to create a secure, scalable, and intelligent digital banking solution—improving security, automating decisions, and enhancing overall efficiency.
         </p>
       </section>
     </div>

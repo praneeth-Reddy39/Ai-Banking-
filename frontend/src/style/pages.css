@@ -1,0 +1,200 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ─── Shared Page Wrapper ──────────────────────────────────────── */
+.pg {
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  background: radial-gradient(ellipse at 20% 10%, #0a1628 0%, #060e1c 60%, #020810 100%);
+  color: #e2eaf8;
+  padding: 80px 24px 60px;
+}
+
+/* ─── Hero Section ─────────────────────────────────────────────── */
+.pg-hero {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 52px;
+  animation: pgFadeUp 0.7s ease both;
+}
+.pg-hero h1 {
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: #eaf2ff;
+  margin-bottom: 14px;
+}
+.pg-hero h1 span { color: #4f8bff; }
+.pg-hero p {
+  font-size: 16px;
+  color: rgba(174, 196, 240, 0.65);
+  line-height: 1.65;
+}
+
+/* ─── Card Grid ────────────────────────────────────────────────── */
+.pg-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ─── Generic Card ─────────────────────────────────────────────── */
+.pg-card {
+  background: rgba(10, 22, 48, 0.7);
+  border: 1px solid rgba(79, 139, 255, 0.15);
+  border-radius: 18px;
+  padding: 28px 24px;
+  backdrop-filter: blur(16px);
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+  animation: pgFadeUp 0.6s ease both;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.pg-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(79, 139, 255, 0.18);
+  border-color: rgba(79, 139, 255, 0.35);
+}
+.pg-card-icon {
+  font-size: 32px;
+  margin-bottom: 14px;
+  display: block;
+}
+.pg-card h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: #eaf2ff;
+  margin-bottom: 8px;
+}
+.pg-card p {
+  font-size: 14px;
+  color: rgba(174, 196, 240, 0.6);
+  line-height: 1.6;
+}
+
+/* ─── Stat Row ─────────────────────────────────────────────────── */
+.pg-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+  max-width: 1100px;
+  margin: 0 auto 32px;
+}
+.pg-stat {
+  background: rgba(10, 22, 48, 0.7);
+  border: 1px solid rgba(79, 139, 255, 0.13);
+  border-radius: 14px;
+  padding: 20px;
+  text-align: center;
+  backdrop-filter: blur(12px);
+  animation: pgFadeUp 0.6s ease both;
+}
+.pg-stat-val {
+  font-size: 26px;
+  font-weight: 700;
+  color: #4f8bff;
+  margin-bottom: 4px;
+}
+.pg-stat-lbl {
+  font-size: 12px;
+  color: rgba(174, 196, 240, 0.55);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* ─── Section (article-style) ──────────────────────────────────── */
+.pg-section {
+  max-width: 820px;
+  margin: 0 auto 32px;
+  background: rgba(10, 22, 48, 0.7);
+  border: 1px solid rgba(79, 139, 255, 0.13);
+  border-radius: 18px;
+  padding: 32px 36px;
+  backdrop-filter: blur(16px);
+  animation: pgFadeUp 0.6s ease both;
+}
+.pg-section h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #eaf2ff;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(79,139,255,0.12);
+}
+.pg-section p, .pg-section li {
+  font-size: 15px;
+  color: rgba(174, 196, 240, 0.7);
+  line-height: 1.8;
+}
+.pg-section ul { padding-left: 20px; margin: 10px 0; }
+.pg-section li { margin-bottom: 6px; }
+
+/* ─── CTA Banner ───────────────────────────────────────────────── */
+.pg-cta {
+  max-width: 700px;
+  margin: 40px auto 0;
+  text-align: center;
+  background: linear-gradient(135deg, rgba(79,139,255,0.12), rgba(120,60,255,0.10));
+  border: 1px solid rgba(79,139,255,0.2);
+  border-radius: 20px;
+  padding: 36px 28px;
+  animation: pgFadeUp 0.7s 0.2s ease both;
+}
+.pg-cta h2 { font-size: 22px; font-weight: 700; color: #eaf2ff; margin-bottom: 10px; }
+.pg-cta p  { font-size: 14px; color: rgba(174,196,240,0.6); margin-bottom: 20px; }
+.pg-btn {
+  display: inline-block;
+  padding: 12px 28px;
+  background: linear-gradient(135deg, #4f8bff, #7c3aff);
+  color: #fff;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  font-family: 'Inter', sans-serif;
+}
+.pg-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(79,139,255,0.4); }
+
+/* ─── Back link ────────────────────────────────────────────────── */
+.pg-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: rgba(174,196,240,0.55);
+  text-decoration: none;
+  margin-bottom: 28px;
+  transition: color 0.2s;
+}
+.pg-back:hover { color: #4f8bff; }
+
+/* ─── Tag / Badge ──────────────────────────────────────────────── */
+.pg-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  background: rgba(79,139,255,0.15);
+  color: #4f8bff;
+  border: 1px solid rgba(79,139,255,0.25);
+  margin-right: 6px;
+}
+
+/* ─── Animations ───────────────────────────────────────────────── */
+@keyframes pgFadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Responsive ───────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .pg { padding: 70px 16px 48px; }
+  .pg-section { padding: 24px 20px; }
+}

@@ -10,6 +10,7 @@ function Dashboard() {
   const [editValues, setEditValues] = useState({ amount: "", type: "", description: "" });
   const [filterType, setFilterType] = useState("ALL");
   const [query, setQuery] = useState("");
+  const [addOpen, setAddOpen] = useState(false);
 
   const loadAll = async () => {
     try {
@@ -17,172 +18,175 @@ function Dashboard() {
       setData(dash.data);
       setTransactions(txs.data);
     } catch {
-      alert("Unauthorized");
+      // handled silently
     }
   };
 
-  useEffect(() => {
-    loadAll();
-  }, []);
+  useEffect(() => { loadAll(); }, []);
 
   const logout = () => {
     localStorage.removeItem("token");
-    window.location.href = "/";
+    window.location.href = "/login";
   };
 
   const createTx = async () => {
+    const payload = { amount: parseFloat(newTx.amount), type: newTx.type, description: newTx.description };
+    if (!payload.amount || payload.amount <= 0 || !Number.isFinite(payload.amount)) return alert("Enter a valid amount > 0");
+    if (!payload.description || payload.description.length < 2) return alert("Enter a description");
     try {
-      const payload = {
-        amount: parseFloat(newTx.amount),
-        type: newTx.type,
-        description: newTx.description,
-      };
-      if (!payload.amount || payload.amount <= 0 || !Number.isFinite(payload.amount)) {
-        alert("Enter a valid amount greater than 0");
-        return;
-      }
-      if (!payload.description || payload.description.length < 2) {
-        alert("Enter a meaningful description");
-        return;
-      }
       await transactionsApi.create(payload);
       setNewTx({ amount: "", type: "DEPOSIT", description: "" });
+      setAddOpen(false);
       loadAll();
-    } catch {
-      alert("Failed to create transaction");
-    }
+    } catch { alert("Failed to create transaction"); }
   };
 
-  const startEdit = (tx) => {
-    setEditing(tx.id);
-    setEditValues({ amount: tx.amount, type: tx.type, description: tx.description });
-  };
-
+  const startEdit = (tx) => { setEditing(tx.id); setEditValues({ amount: tx.amount, type: tx.type, description: tx.description }); };
   const saveEdit = async (id) => {
     try {
-      const payload = {
-        amount: parseFloat(editValues.amount),
-        type: editValues.type,
-        description: editValues.description,
-      };
-      await transactionsApi.update(id, payload);
-      setEditing(null);
-      loadAll();
-    } catch {
-      alert("Failed to update transaction");
-    }
+      await transactionsApi.update(id, { amount: parseFloat(editValues.amount), type: editValues.type, description: editValues.description });
+      setEditing(null); loadAll();
+    } catch { alert("Update failed"); }
   };
+  const deleteTx = async (id) => { try { await transactionsApi.delete(id); loadAll(); } catch { alert("Delete failed"); } };
 
-  const deleteTx = async (id) => {
-    try {
-      await transactionsApi.delete(id);
-      loadAll();
-    } catch {
-      alert("Failed to delete transaction");
-    }
-  };
-
-  if (!data) return <h3>Loading...</h3>;
+  if (!data) return (
+    <div className="dash-loading">
+      <div className="dash-spinner" />
+      <p>Loading your dashboard…</p>
+    </div>
+  );
 
   const filtered = transactions
-    .filter((t) => (filterType === "ALL" ? true : t.type === filterType))
-    .filter((t) => (query ? (t.description || "").toLowerCase().includes(query.toLowerCase()) : true))
+    .filter(t => filterType === "ALL" || t.type === filterType)
+    .filter(t => !query || (t.description || "").toLowerCase().includes(query.toLowerCase()))
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
-  const deposits = filtered.filter((t) => t.type === "DEPOSIT").reduce((s, t) => s + t.amount, 0);
-  const withdraws = filtered.filter((t) => t.type === "WITHDRAW").reduce((s, t) => s + t.amount, 0);
+  const totalDeposits = transactions.filter(t => t.type === "DEPOSIT").reduce((s, t) => s + t.amount, 0);
+  const totalWithdraws = transactions.filter(t => t.type === "WITHDRAW").reduce((s, t) => s + t.amount, 0);
 
   return (
-    <div className="dashboard">
-      <h2>Welcome {data.name}</h2>
-      <h3>Balance: ₹{data.balance}</h3>
-      <div className="ai-box">
-        <p>{data.aiMessage}</p>
+    <div className="dash">
+      {/* Header */}
+      <div className="dash-header">
+        <div>
+          <h1 className="dash-title">Welcome back, <span>{data.name}</span> 👋</h1>
+          <p className="dash-sub">Here's your financial overview</p>
+        </div>
+        <button className="dash-logout" onClick={logout}>Logout</button>
       </div>
 
-      <div className="transactions">
-        <h3>Transactions</h3>
-        <div className="tx-filters">
-          <select value={filterType} onChange={(e) => setFilterType(e.target.value)}>
-            <option value="ALL">All</option>
-            <option value="DEPOSIT">Deposits</option>
-            <option value="WITHDRAW">Withdrawals</option>
-          </select>
-          <input
-            type="text"
-            placeholder="Search description"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-          <div className="tx-summary">
-            <span>Deposits: ₹{deposits.toFixed(2)}</span>
-            <span>Withdrawals: ₹{withdraws.toFixed(2)}</span>
-          </div>
+      {/* Stats */}
+      <div className="dash-stats">
+        <div className="dash-stat">
+          <div className="dash-stat-icon">💰</div>
+          <div className="dash-stat-label">Balance</div>
+          <div className="dash-stat-value">₹{data.balance?.toLocaleString("en-IN") ?? "0"}</div>
         </div>
-        <div className="tx-form">
-          <input
-            type="number"
-            placeholder="Amount"
-            value={newTx.amount}
-            onChange={(e) => setNewTx({ ...newTx, amount: e.target.value })}
-          />
-        <select
-            value={newTx.type}
-            onChange={(e) => setNewTx({ ...newTx, type: e.target.value })}
-          >
-            <option value="DEPOSIT">DEPOSIT</option>
-            <option value="WITHDRAW">WITHDRAW</option>
-          </select>
-          <input
-            type="text"
-            placeholder="Description"
-            value={newTx.description}
-            onChange={(e) => setNewTx({ ...newTx, description: e.target.value })}
-          />
-          <button onClick={createTx}>Add</button>
+        <div className="dash-stat green">
+          <div className="dash-stat-icon">📈</div>
+          <div className="dash-stat-label">Total Deposits</div>
+          <div className="dash-stat-value">₹{totalDeposits.toLocaleString("en-IN")}</div>
+        </div>
+        <div className="dash-stat red">
+          <div className="dash-stat-icon">📉</div>
+          <div className="dash-stat-label">Total Withdrawals</div>
+          <div className="dash-stat-value">₹{totalWithdraws.toLocaleString("en-IN")}</div>
+        </div>
+        <div className="dash-stat purple">
+          <div className="dash-stat-icon">🔄</div>
+          <div className="dash-stat-label">Transactions</div>
+          <div className="dash-stat-value">{transactions.length}</div>
+        </div>
+      </div>
+
+      {/* AI Message */}
+      {data.aiMessage && (
+        <div className="dash-ai">
+          <span className="dash-ai-icon">🤖</span>
+          <p>{data.aiMessage}</p>
+        </div>
+      )}
+
+      {/* Transactions */}
+      <div className="dash-panel">
+        <div className="dash-panel-head">
+          <h2>Transactions</h2>
+          <button className="dash-add-btn" onClick={() => setAddOpen(o => !o)}>
+            {addOpen ? "✕ Cancel" : "+ New Transaction"}
+          </button>
         </div>
 
-        <ul className="tx-list">
-          {filtered.map((tx) => (
-            <li key={tx.id} className="tx-item">
+        {/* Add Form */}
+        {addOpen && (
+          <div className="dash-tx-form">
+            <input type="number" placeholder="Amount (₹)" value={newTx.amount}
+              onChange={e => setNewTx({ ...newTx, amount: e.target.value })} />
+            <select value={newTx.type} onChange={e => setNewTx({ ...newTx, type: e.target.value })}>
+              <option value="DEPOSIT">Deposit</option>
+              <option value="WITHDRAW">Withdraw</option>
+            </select>
+            <input type="text" placeholder="Description" value={newTx.description}
+              onChange={e => setNewTx({ ...newTx, description: e.target.value })} />
+            <button className="dash-submit-btn" onClick={createTx}>Add</button>
+          </div>
+        )}
+
+        {/* Filters */}
+        <div className="dash-filters">
+          <div className="dash-filter-tabs">
+            {["ALL", "DEPOSIT", "WITHDRAW"].map(t => (
+              <button key={t} className={`dash-tab ${filterType === t ? "active" : ""}`}
+                onClick={() => setFilterType(t)}>
+                {t === "ALL" ? "All" : t === "DEPOSIT" ? "Deposits" : "Withdrawals"}
+              </button>
+            ))}
+          </div>
+          <input className="dash-search" type="text" placeholder="🔍 Search…"
+            value={query} onChange={e => setQuery(e.target.value)} />
+        </div>
+
+        {/* List */}
+        <div className="dash-tx-list">
+          {filtered.length === 0 && <p className="dash-empty">No transactions found.</p>}
+          {filtered.map(tx => (
+            <div key={tx.id} className={`dash-tx ${tx.type === "DEPOSIT" ? "dep" : "wit"}`}>
               {editing === tx.id ? (
-                <>
-                  <input
-                    type="number"
-                    value={editValues.amount}
-                    onChange={(e) => setEditValues({ ...editValues, amount: e.target.value })}
-                  />
-                  <select
-                    value={editValues.type}
-                    onChange={(e) => setEditValues({ ...editValues, type: e.target.value })}
-                  >
-                    <option value="DEPOSIT">DEPOSIT</option>
-                    <option value="WITHDRAW">WITHDRAW</option>
+                <div className="dash-tx-edit">
+                  <input type="number" value={editValues.amount}
+                    onChange={e => setEditValues({ ...editValues, amount: e.target.value })} />
+                  <select value={editValues.type}
+                    onChange={e => setEditValues({ ...editValues, type: e.target.value })}>
+                    <option value="DEPOSIT">Deposit</option>
+                    <option value="WITHDRAW">Withdraw</option>
                   </select>
-                  <input
-                    type="text"
-                    value={editValues.description}
-                    onChange={(e) => setEditValues({ ...editValues, description: e.target.value })}
-                  />
+                  <input type="text" value={editValues.description}
+                    onChange={e => setEditValues({ ...editValues, description: e.target.value })} />
                   <button onClick={() => saveEdit(tx.id)}>Save</button>
                   <button onClick={() => setEditing(null)}>Cancel</button>
-                </>
+                </div>
               ) : (
                 <>
-                  <span>{tx.type}</span>
-                  <span>₹{tx.amount}</span>
-                  <span>{tx.description}</span>
-                  <span>{new Date(tx.createdAt).toLocaleString()}</span>
-                  <button onClick={() => startEdit(tx)}>Edit</button>
-                  <button onClick={() => deleteTx(tx.id)}>Delete</button>
+                  <div className="dash-tx-left">
+                    <span className="dash-tx-badge">{tx.type === "DEPOSIT" ? "↑" : "↓"}</span>
+                    <div>
+                      <div className="dash-tx-desc">{tx.description || "—"}</div>
+                      <div className="dash-tx-date">{new Date(tx.createdAt).toLocaleString("en-IN")}</div>
+                    </div>
+                  </div>
+                  <div className="dash-tx-right">
+                    <span className="dash-tx-amt">{tx.type === "DEPOSIT" ? "+" : "−"}₹{tx.amount?.toLocaleString("en-IN")}</span>
+                    <div className="dash-tx-actions">
+                      <button onClick={() => startEdit(tx)}>✏️</button>
+                      <button onClick={() => deleteTx(tx.id)}>🗑️</button>
+                    </div>
+                  </div>
                 </>
               )}
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
-
-      <button onClick={logout}>Logout</button>
     </div>
   );
 }

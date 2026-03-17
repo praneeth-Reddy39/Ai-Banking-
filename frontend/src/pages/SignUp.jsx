@@ -132,7 +132,7 @@ function SignUp() {
         </div>
 
         <h1 className="su-title">Create Account</h1>
-        <p className="su-subtitle">Join AI Banking in seconds</p>
+        <p className="su-subtitle">Join AI Banking Network in seconds</p>
 
         {error && (
           <div className="su-error">
