@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/analytics")
-@CrossOrigin
 public class AnalyticsController {
 
     private final AnalyticsService analyticsService;

@@ -13,7 +13,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
 
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig {
 
     private final JwtFilter jwtFilter;
@@ -30,8 +33,9 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/debug/**").permitAll()
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
@@ -48,14 +52,12 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        // Allow all origins — JWT uses Authorization header (no cookies), so
-        // allowCredentials must be false with wildcard origins.
+        // JWT uses Authorization header (no cookies), so allowCredentials is false.
+        // This allows wildcard origins to work correctly.
         config.setAllowedOriginPatterns(List.of("*"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         config.setExposedHeaders(List.of("Authorization"));
-        // DO NOT set allowCredentials(true) with wildcard origins — causes CORS failures.
-        // JWT is sent via the Authorization header, not as a cookie.
         config.setAllowCredentials(false);
         config.setMaxAge(3600L);
 
