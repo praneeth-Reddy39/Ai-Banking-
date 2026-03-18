@@ -21,8 +21,8 @@ api.interceptors.response.use(
     const currentPath = typeof window !== "undefined" ? window.location.pathname : "";
     const isAuthPage = currentPath === "/login" || currentPath === "/signup";
 
-    if ((status === 401) && !isAuthPage) {
-      // Expired/invalid token on a protected page → go to login
+    if ((status === 401 || status === 403) && !isAuthPage) {
+      // Expired/invalid/forbidden token on a protected page → go to login
       localStorage.removeItem("token");
       window.location.href = "/login";
     }

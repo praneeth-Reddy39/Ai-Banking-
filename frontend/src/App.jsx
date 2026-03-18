@@ -14,6 +14,7 @@ import { ServiceSavings, ServiceBusiness, ServiceCards, ServiceInsurance, Servic
 import Accounts from "./pages/Accounts";
 import About from "./pages/About";
 import Insights from "./pages/Insights";
+import Database from "./pages/Database";
 
 function App() {
   return (
@@ -150,6 +151,7 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route path="/database" element={<Database />} />
       </Routes>
     </BrowserRouter>
   );
