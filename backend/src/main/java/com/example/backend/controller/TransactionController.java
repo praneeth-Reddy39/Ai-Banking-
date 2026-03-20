@@ -7,7 +7,9 @@ import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.Authentication;
 
+import org.springframework.http.ResponseEntity;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin("*")
 @RestController
@@ -21,16 +23,15 @@ public class TransactionController {
     }
 
     @GetMapping
-    public List<TransactionResponse> list(Authentication authentication) {
+    public ResponseEntity<List<TransactionResponse>> list(Authentication authentication) {
         String email = authentication.getName();
-        return transactionService.list(email);
+        return ResponseEntity.ok(transactionService.list(email));
     }
 
     @PostMapping
-    public TransactionResponse create(Authentication authentication,
-                                      @RequestBody TransactionRequest request) {
+    public ResponseEntity<TransactionResponse> create(Authentication authentication, @RequestBody TransactionRequest request) {
         String email = authentication.getName();
-        return transactionService.create(email, request);
+        return ResponseEntity.ok(transactionService.create(email, request));
     }
 
     @PutMapping("/{id}")
@@ -42,8 +43,9 @@ public class TransactionController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(Authentication authentication, @PathVariable @NonNull Long id) {
+    public ResponseEntity<Void> delete(Authentication authentication, @PathVariable @NonNull Long id) {
         String email = authentication.getName();
         transactionService.delete(email, id);
+        return ResponseEntity.noContent().build();
     }
 }

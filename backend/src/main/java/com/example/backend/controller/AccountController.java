@@ -6,6 +6,7 @@ import com.example.backend.service.AccountService;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 @CrossOrigin("*")
@@ -20,12 +21,12 @@ public class AccountController {
     }
 
     @GetMapping
-    public List<AccountResponse> list(Authentication authentication) {
-        return accountService.list(authentication.getName());
+    public ResponseEntity<List<AccountResponse>> list(Authentication authentication) {
+        return ResponseEntity.ok(accountService.list(authentication.getName()));
     }
 
     @PostMapping
-    public AccountResponse create(Authentication authentication, @RequestBody AccountCreateRequest request) {
-        return accountService.create(authentication.getName(), request);
+    public ResponseEntity<AccountResponse> create(Authentication authentication, @RequestBody AccountCreateRequest request) {
+        return ResponseEntity.ok(accountService.create(authentication.getName(), request));
     }
 }

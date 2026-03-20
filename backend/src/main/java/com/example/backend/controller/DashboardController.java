@@ -3,6 +3,7 @@ package com.example.backend.controller;
 import com.example.backend.entity.User;
 import com.example.backend.service.AiService;
 import com.example.backend.service.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,7 @@ public class DashboardController {
     }
 
     @GetMapping
-    public Map<String, Object> dashboard(Authentication authentication) {
+    public ResponseEntity<Map<String, Object>> dashboard(Authentication authentication) {
 
         String email = authentication.getName();
         User user = userService.getUser(email);
@@ -38,6 +39,6 @@ public class DashboardController {
         response.put("aiMessage",
                 aiService.generateInsight(user.getBalance(), monthlySpending));
 
-        return response;
+        return ResponseEntity.ok(response);
     }
 }
