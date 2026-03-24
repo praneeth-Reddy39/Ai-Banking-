@@ -35,11 +35,11 @@ public class TransactionController {
     }
 
     @PutMapping("/{id}")
-    public TransactionResponse update(Authentication authentication,
+    public ResponseEntity<TransactionResponse> update(Authentication authentication,
                                       @PathVariable @NonNull Long id,
                                       @RequestBody TransactionRequest request) {
         String email = authentication.getName();
-        return transactionService.update(email, id, request);
+        return ResponseEntity.ok(transactionService.update(email, id, request));
     }
 
     @DeleteMapping("/{id}")

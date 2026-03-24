@@ -108,6 +108,73 @@ function Dashboard() {
         </div>
       )}
 
+      {/* My Cards */}
+      <div className="dash-cards-section">
+        <div className="dash-cards-head">
+          <h2>My Cards</h2>
+          <span className="dash-cards-badge">{data.bankName || "AI Banking"}</span>
+        </div>
+        <div className="dash-cards-grid">
+          {/* Virtual Card */}
+          <div className="dash-card dash-card--primary">
+            <div className="dash-card-top">
+              <div className="dash-card-chip"><div className="dash-chip-inner" /></div>
+              <div className="dash-card-network">VISA</div>
+            </div>
+            <div className="dash-card-number">
+              •••• &nbsp;•••• &nbsp;•••• &nbsp;{(data.accountNumber || "0000").slice(-4)}
+            </div>
+            <div className="dash-card-bottom">
+              <div>
+                <div className="dash-card-label">Card Holder</div>
+                <div className="dash-card-val">{data.name}</div>
+              </div>
+              <div>
+                <div className="dash-card-label">IFSC</div>
+                <div className="dash-card-val">{data.ifsc || "BANK0000000"}</div>
+              </div>
+              <div>
+                <div className="dash-card-label">Balance</div>
+                <div className="dash-card-val">₹{data.balance?.toLocaleString("en-IN") ?? "0"}</div>
+              </div>
+            </div>
+            <div className="dash-card-glow" />
+          </div>
+
+          {/* Quick Stats */}
+          <div className="dash-card-stats">
+            <div className="dash-card-stat-item dash-csi--green">
+              <div className="dash-csi-icon">↑</div>
+              <div>
+                <div className="dash-csi-label">Total Credited</div>
+                <div className="dash-csi-val">+₹{totalDeposits.toLocaleString("en-IN")}</div>
+              </div>
+            </div>
+            <div className="dash-card-stat-item dash-csi--red">
+              <div className="dash-csi-icon">↓</div>
+              <div>
+                <div className="dash-csi-label">Total Debited</div>
+                <div className="dash-csi-val">−₹{totalWithdraws.toLocaleString("en-IN")}</div>
+              </div>
+            </div>
+            <div className="dash-card-stat-item dash-csi--blue">
+              <div className="dash-csi-icon">🏦</div>
+              <div>
+                <div className="dash-csi-label">Bank</div>
+                <div className="dash-csi-val">{data.bankName || "AI Banking"}</div>
+              </div>
+            </div>
+            <div className="dash-card-stat-item dash-csi--purple">
+              <div className="dash-csi-icon">📱</div>
+              <div>
+                <div className="dash-csi-label">Mobile</div>
+                <div className="dash-csi-val">{data.mobile ? `••••••${data.mobile.slice(-4)}` : "—"}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Transactions */}
       <div className="dash-panel">
         <div className="dash-panel-head">

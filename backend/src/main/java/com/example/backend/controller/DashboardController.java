@@ -36,6 +36,10 @@ public class DashboardController {
         Map<String, Object> response = new HashMap<>();
         response.put("name", user.getName());
         response.put("balance", user.getBalance());
+        response.put("accountNumber", user.getAccountNumber());
+        response.put("ifsc", user.getIfsc());
+        response.put("bankName", user.getBankName());
+        response.put("mobile", user.getMobile());
         response.put("aiMessage",
                 aiService.generateInsight(user.getBalance(), monthlySpending));
 
