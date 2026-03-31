@@ -35,3 +35,8 @@ build/
 ### Sensitive config — never commit real credentials ###
 src/main/resources/application-mysql.properties
 src/main/resources/application-dev.properties
+
+### Environment variable files — NEVER commit these ###
+.env
+.env.*
+!.env.example
